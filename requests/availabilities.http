@@ -1,0 +1,13 @@
+### Test list Availabilities
+GET {{baseUrl}}/availabilities
+
+### Test create Availabilities
+POST {{baseUrl}}/availabilities
+Content-Type: application/json
+Authorization: {{helper}}
+
+{
+  "availabilityDate": "2023-04-19",
+  "startingHour": "11:00:00",
+  "endingHour": "13:00:00"
+}

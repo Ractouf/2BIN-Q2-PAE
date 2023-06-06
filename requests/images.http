@@ -1,0 +1,2 @@
+### Test get image
+GET {{baseUrl}}/images/default-user.png

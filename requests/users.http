@@ -1,0 +1,133 @@
+### Register user
+POST {{baseUrl}}/auths/register
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="email"
+
+user@user.user
+------WebKitFormBoundary
+Content-Disposition: form-data; name="password"
+
+Usermdp.2
+------WebKitFormBoundary
+Content-Disposition: form-data; name="lastname"
+
+user
+------WebKitFormBoundary
+Content-Disposition: form-data; name="firstname"
+
+user
+------WebKitFormBoundary
+Content-Disposition: form-data; name="gsm"
+
+0411/11.11.11
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="file.jpg"
+Content-Type: image/jpeg
+
+<binary data>
+------WebKitFormBoundary--
+
+> {%
+  client.global.set("user", response.body.token);
+%}
+
+### Login M.Ile
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+  "email": "bas.ile@gmail.be",
+  "password": "mdpusr.2"
+}
+
+> {%
+  client.global.set("user", response.body.token);
+%}
+
+### Login M.Muise
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+  "email": "fred.muise@gmail.be",
+  "password": "Mauve;7?"
+}
+
+> {%
+  client.global.set("helper", response.body.token);
+%}
+
+### Login M.Riez
+POST {{baseUrl}}/auths/login
+Content-Type: application/json
+
+{
+  "email": "bert.riez@gmail.be",
+  "password": "Jaune;10."
+}
+
+> {%
+  client.global.set("manager", response.body.token);
+%}
+
+### List of all the Users
+GET {{baseUrl}}/users
+Authorization: {{manager}}
+
+### Test get objects of given user
+GET {{baseUrl}}/users/4/objects
+Authorization: {{user}}
+
+### Test auths/user
+GET {{baseUrl}}/auths/user
+Authorization: {{user}}
+
+### Test users/promote
+PATCH {{baseUrl}}/users/1/promote
+Authorization: {{manager}}
+
+### Test users/{id}
+GET {{baseUrl}}/users/3
+Authorization: {{helper}}
+
+### Test users/{id}/notifications
+GET {{baseUrl}}/users/1/notifications
+Authorization: {{user}}
+
+### Test read one user notification
+PATCH {{baseUrl}}/users/1/notifications/1
+Authorization: {{user}}
+
+### Test edit User
+PATCH {{baseUrl}}/users/4/edit
+Authorization: {{user}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="lastname"
+
+Renard
+------WebKitFormBoundary
+Content-Disposition: form-data; name="firstname"
+
+Rizzoto
+------WebKitFormBoundary
+Content-Disposition: form-data; name="email"
+
+berto.riez@gmail.com
+------WebKitFormBoundary
+Content-Disposition: form-data; name="phone"
+
+0491/96.85.47
+------WebKitFormBoundary
+Content-Disposition: form-data; name="password"
+
+azer123.
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="file.jpg"
+Content-Type: image/jpeg
+
+<binary data>
+------WebKitFormBoundary--

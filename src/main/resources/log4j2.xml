@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="[%d{HH:mm:ss}] %-5level - %msg%n"/>
+    </Console>
+    <RollingFile fileName="logs/latest.log" filePattern="logs/$${date:yyyy-MM}/log-%d{yyyy-MM-dd}-%i.log.gz"
+      name="File">
+      <DefaultRolloverStrategy>
+        <Delete basePath="logs" maxDepth="2">
+          <IfFileName glob="*.log.gz" />
+          <IfLastModified age="30d" />
+        </Delete>
+      </DefaultRolloverStrategy>
+      <PatternLayout>
+        <Pattern>[%d{HH:mm:ss}] %-5level - %msg%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="250 MB"/>
+        <TimeBasedTriggeringPolicy />
+      </Policies>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="File"/>
+    </Root>
+  </Loggers>
+</Configuration>

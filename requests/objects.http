@@ -1,0 +1,103 @@
+### Test propose Object
+POST {{baseUrl}}/objects
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="type"
+
+Table
+------WebKitFormBoundary
+Content-Disposition: form-data; name="description"
+
+This is a table.
+------WebKitFormBoundary
+Content-Disposition: form-data; name="availability"
+
+2023-03-04-14:00
+------WebKitFormBoundary
+Content-Disposition: form-data; name="offering_member"
+
+5
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="file.jpg"
+Content-Type: image/jpeg
+
+<binary data>
+------WebKitFormBoundary--
+
+# pour tester le unknown user phone number, retirer le offering_member et remplacer par:
+# Content-Disposition: form-data; name="unknown_user_phone_number"
+#
+# 0495/20.41.90
+
+
+### Test edit Object
+PATCH {{baseUrl}}/objects/1/edit
+Authorization: {{helper}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="price"
+
+10
+------WebKitFormBoundary
+Content-Disposition: form-data; name="type"
+
+Table
+------WebKitFormBoundary
+Content-Disposition: form-data; name="description"
+
+testtest
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="file.jpg"
+Content-Type: image/jpeg
+
+<binary data>
+------WebKitFormBoundary--
+
+### Test list Objects
+GET {{baseUrl}}/objects
+Authorization: {{helper}}
+
+### Test list home page Objects
+GET {{baseUrl}}/objects/home
+
+### Test get objects at id
+GET {{baseUrl}}/objects/1
+
+### Test list Objects proposed
+GET {{baseUrl}}/objects/proposed
+Authorization: {{manager}}
+
+### Test accept Object
+PATCH {{baseUrl}}/objects/1/accept
+Authorization: {{manager}}
+
+### Test refuse Object
+PATCH {{baseUrl}}/objects/1/refuse
+Authorization: {{manager}}
+Content-Type: application/json
+
+{
+  "refusalReason": "The object is not up to our standards."
+}
+
+### Test set in workshop Object
+PATCH {{baseUrl}}/objects/1/workshop
+Authorization: {{manager}}
+
+### Test set in shop Object
+PATCH {{baseUrl}}/objects/1/shop
+Authorization: {{manager}}
+
+### Test set Object on sale
+PATCH {{baseUrl}}/objects/1/onsale
+Authorization: {{manager}}
+
+### Test sell Object
+PATCH {{baseUrl}}/objects/1/sell
+Authorization: {{manager}}
+
+### Test remove Object from sale
+PATCH {{baseUrl}}/objects/1/remove
+Authorization: {{manager}}

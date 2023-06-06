@@ -1,0 +1,3 @@
+### Test /dashboard
+GET {{baseUrl}}/dashboard
+Authorization: {{helper}}
